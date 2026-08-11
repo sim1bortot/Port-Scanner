@@ -1,0 +1,5 @@
+# No external dependencies required.
+# This project only uses the Python standard library
+# (socket, argparse, threading/concurrent.futures, json, datetime, os).
+#
+# Python 3.8+ is required.

@@ -2,7 +2,7 @@
 
 A lightweight, multithreaded TCP port scanner with banner grabbing and automated reporting, built in pure Python with zero external dependencies.
 
-Designed as a hands-on project to explore core network security concepts: TCP connection scanning, service fingerprinting, and basic vulnerability signature matching.
+Hands-on project to explore core network security concepts: TCP connection scanning, service fingerprinting, and basic vulnerability signature matching.
 
 ---
 
@@ -10,16 +10,13 @@ Designed as a hands-on project to explore core network security concepts: TCP co
 
 - [Overview](#overview)
 - [Features](#features)
-- [Legal and ethical use](#legal-and-ethical-use)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
 - [CLI options](#cli-options)
-- [Sample output](#sample-output)
 - [How it works](#how-it-works)
 - [Project structure](#project-structure)
 - [Limitations](#limitations)
-- [Roadmap](#roadmap)
 - [License](#license)
 
 ---
@@ -38,12 +35,6 @@ The project was built to practice core networking and security concepts hands-on
 - **Multi-format reporting** — plain text, styled HTML, and machine-readable JSON
 - **Flexible port selection** — single port, numeric range, comma-separated list, or a curated default set of common ports
 - **No external dependencies** — runs on any standard Python 3.8+ installation
-
-## Legal and ethical use
-
-> **This tool must only be used against systems you own or are explicitly authorized to test** — e.g. your own machines, local virtual machines, or platforms built for security training (TryHackMe, HackTheBox, etc.).
-
-Scanning systems without authorization is illegal in most jurisdictions (in Italy, for example, under Art. 615-ter of the Penal Code and related regulations) and may violate the terms of service of your ISP or hosting provider. The author assumes no responsibility for misuse of this software. Use it to learn, not to attack.
 
 ## Requirements
 
@@ -117,46 +108,6 @@ python3 port_scanner.py 127.0.0.1 --formats txt,html,json
 
 Run `python3 port_scanner.py --help` for the full list at any time.
 
-## Sample output
-
-Console output during a scan:
-
-```
-[*] Target: 127.0.0.1 (127.0.0.1)
-[*] Scanning 127.0.0.1 on 21 ports (timeout=1.0s, threads=100)...
-
-[+] Port    22 OPEN  (expected service: SSH)
-[+] Port   445 OPEN  (expected service: SMB)
-
-[*] Grabbing banners on open ports...
-
-    Port    22: SSH-2.0-OpenSSH_10.0
-    Port   445: (no banner received)
-
-[*] Scan completed in 0.42s. Open ports found: 2
-```
-
-Generated report excerpt (`reports/scan_<host>_<timestamp>.txt`):
-
-```
-============================================================
-PORT SCAN REPORT
-============================================================
-Host:           127.0.0.1
-Scan date:      2026-08-11 13:19:25
-Duration:       3.11s
-Open ports:     2
-------------------------------------------------------------
-Port 22 (SSH)
-  Banner:  SSH-2.0-OpenSSH_10.0
-
-Port 445 (SMB)
-  Banner:  (no banner received)
-============================================================
-```
-
-An HTML version of the same report is also generated, with a dark, readable layout suitable for sharing or archiving scan results.
-
 ## How it works
 
 1. **Port scan** — for every port in the target list, the script attempts a TCP `connect()` (via `socket.connect_ex`) with a short timeout. A successful connection marks the port as open. This is a standard TCP connect scan — no raw sockets or elevated privileges required, unlike a SYN stealth scan.
@@ -182,14 +133,6 @@ port-scanner-toolkit/
 - No TLS handshake for banner grabbing on HTTPS-like ports (reported as unavailable rather than guessed)
 - The vulnerable-signature database is intentionally minimal and meant for learning — it is **not** a substitute for a real vulnerability feed (e.g. NVD, Vulners)
 - Scans a single host at a time; no CIDR/subnet sweeping yet
-
-## Roadmap
-
-- [ ] CIDR range support (scan multiple hosts in one run)
-- [ ] Async implementation using `asyncio` as an alternative to threading
-- [ ] Integration with a real vulnerability database (e.g. NVD API)
-- [ ] UDP scanning support
-- [ ] Automated "risk summary" section in reports (plain-language recommendations per finding)
 
 ## License
 
